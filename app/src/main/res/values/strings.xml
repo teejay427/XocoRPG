@@ -1,3 +1,5 @@
 <resources>
 	<string name="app_name">XocoRPG</string>
+	<string name="dummyText">I am text</string>
+	<string name="refresh">Refresh</string>
 </resources>

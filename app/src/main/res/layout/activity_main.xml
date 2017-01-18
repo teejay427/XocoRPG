@@ -14,5 +14,20 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Hello World!" />
+		android:text="@string/dummyText"
+		android:id="@+id/nameLabel"
+		android:textAppearance="@android:style/TextAppearance.Material.Large"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true" />
+
+	<Button
+		android:id="@+id/refreshButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/nameLabel"
+		android:layout_centerHorizontal="true"
+		android:text="@string/refresh"
+		android:onClick="onRefreshButtonClick" />
+
+
 </RelativeLayout>
