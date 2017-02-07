@@ -16,24 +16,6 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
-
-		generateNewName();
-	}
-
-	void generateNewName(){
-		setNameLabel( nameGenerator.newName( random ) );
-	}
-
-	public void onRefreshButtonClick( View view ){
-		generateNewName();
-	}
-
-	TextView getNameLabel(){
-		return ( TextView ) findViewById( R.id.nameLabel );
-	}
-
-	void setNameLabel( String newText ){
-		getNameLabel().setText( newText );
 	}
 
 }
