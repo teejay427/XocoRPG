@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+
 
 public class CharacterView extends View {
 
@@ -21,6 +23,7 @@ public class CharacterView extends View {
 	int canvasHeight;
 	int canvasWidthCenter;
 	int canvasHeightCenter;
+	ArrayList<ArrayList<Bitmap>> characterSprites;
 
 	public CharacterView( Context context ){
 		super( context );
@@ -44,7 +47,34 @@ public class CharacterView extends View {
 	}
 
 	void initializeCharacter(){
-		characterPic = BitmapFactory.decodeResource( this.getResources(), R.drawable.dwalk1 );
+
+		ArrayList<Bitmap> upSprites = new ArrayList<>();
+		upSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.uwalk1 ) );
+		upSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.uwalk2 ) );
+		upSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.uwalk3 ) );
+
+		ArrayList<Bitmap> rightSprites = new ArrayList<>();
+		rightSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.rwalk1 ) );
+		rightSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.rwalk2 ) );
+		rightSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.rwalk3 ) );
+
+		ArrayList<Bitmap> downSprites = new ArrayList<>();
+		downSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.dwalk1 ) );
+		downSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.dwalk2 ) );
+		downSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.dwalk3 ) );
+
+		ArrayList<Bitmap> leftSprites = new ArrayList<>();
+		leftSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.lwalk1 ) );
+		leftSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.lwalk2 ) );
+		leftSprites.add( BitmapFactory.decodeResource( this.getResources(), R.drawable.lwalk3 ) );
+
+		characterSprites = new ArrayList<>();
+		characterSprites.add( upSprites );
+		characterSprites.add( rightSprites );
+		characterSprites.add( downSprites );
+		characterSprites.add( leftSprites );
+
+		characterPic = downSprites.get( 0 );
 	}
 
 	@Override
@@ -65,22 +95,15 @@ public class CharacterView extends View {
 		canvas.restore();
 	}
 
-	@Override
+	/*@Override
 	public boolean onTouchEvent( MotionEvent event ){
-		Log.v( "OnTouchEvent", "In the overridden on touch event " + Integer.toString( event.getActionMasked() ) );
-		Log.v( "OnTouchEvent", "x: " + Float.toString( event.getX() ) + ", y: " + Float.toString( event.getY() ) );
-		Log.v( "OnTouchEvent", "x0: " + Float.toString( event.getX( 0 ) ) + ", y0: " + Float.toString( event.getY( 0 ) ) );
-		Log.v( "OnTouchEvent", "Width: " + Integer.toString( canvasWidth ) + ", Height: " + Integer.toString( canvasHeight ) );
-		Log.v( "OnTouchEvent", "x: " + Float.toString( event.getX() - canvasWidthCenter ) + ", y: " + Float.toString( event.getY() - canvasHeightCenter ) );
 
 		float adjustedX = ( event.getX( 0 ) - canvasWidthCenter ) / canvasWidth;
 		float adjustedY = ( event.getY( 0 ) - canvasHeightCenter ) / canvasHeight;
 
-		Log.d( "OnTouchEvent", "adjusted x: " + Float.toString( adjustedX ) + ", adjusted Y: " + Float.toString( adjustedY ) );
-
 		switch( event.getActionMasked() ){
 			case MotionEvent.ACTION_DOWN:
-				Log.i( "ACTION_UP", "Running custom action down" );
+				//Log.i( "ACTION_UP", "Running custom action down" );
 				if( adjustedY <= 0 && Math.abs( adjustedY ) > Math.abs( adjustedX ) ){
 					// Turn character up
 					pointCharacter( 0 );
@@ -103,25 +126,25 @@ public class CharacterView extends View {
 		}
 
 		return super.onTouchEvent( event );
-	}
+	}*/
 
 	void pointCharacter( int direction ){
 
 		switch( direction ){
 			case 0:
-				Log.i( "TurningCharacter", "Turning character up" );
+				//Log.i( "TurningCharacter", "Turning character up" );
 				characterPic = BitmapFactory.decodeResource( this.getResources(), R.drawable.uwalk1 );
 				break;
 			case 1:
-				Log.i( "TurningCharacter", "Turning character right" );
+				//Log.i( "TurningCharacter", "Turning character right" );
 				characterPic = BitmapFactory.decodeResource( this.getResources(), R.drawable.rwalk1 );
 				break;
 			case 2:
-				Log.i( "TurningCharacter", "Turning character down" );
+				//Log.i( "TurningCharacter", "Turning character down" );
 				characterPic = BitmapFactory.decodeResource( this.getResources(), R.drawable.dwalk1 );
 				break;
 			case 3:
-				Log.i( "TurningCharacter", "Turning character left" );
+				//Log.i( "TurningCharacter", "Turning character left" );
 				characterPic = BitmapFactory.decodeResource( this.getResources(), R.drawable.lwalk1 );
 				break;
 		}
