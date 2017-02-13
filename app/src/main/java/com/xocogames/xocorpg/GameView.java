@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,16 +12,10 @@ import android.view.View;
 
 public class GameView extends View {
 
-	boolean widthAndHeightInitialized = false;
 	static float screenWidthInCentimeters = 0.0f;
 	static float screenHeightInCentimeters = 0.0f;
 	static int screenWidthInPixels = 0;
 	static int screenHeightInPixels = 0;
-	int canvasWidth;
-	int canvasHeight;
-	int canvasWidthCenter;
-	int canvasHeightCenter;
-	Point size = new Point();
 	DisplayMetrics metrics = new DisplayMetrics();
 	Paint linePaint;
 	GameMap gameMap;
@@ -96,38 +89,5 @@ public class GameView extends View {
 		gameMap.onDraw( canvas );
 
 	}
-
-	/*@Override
-	public boolean onTouchEvent( MotionEvent event ){
-
-		float adjustedX = ( event.getX( 0 ) - canvasWidthCenter ) / canvasWidth;
-		float adjustedY = ( event.getY( 0 ) - canvasHeightCenter ) / canvasHeight;
-
-		switch( event.getActionMasked() ){
-			case MotionEvent.ACTION_DOWN:
-				//Log.i( "ACTION_UP", "Running custom action down" );
-				if( adjustedY <= 0 && Math.abs( adjustedY ) > Math.abs( adjustedX ) ){
-					// Turn character up
-					pointCharacter( 0 );
-				}
-				else if( adjustedY > 0 && Math.abs( adjustedY ) > Math.abs( adjustedX ) ){
-					// Turn character down
-					pointCharacter( 2 );
-				}
-				else if( adjustedX > 0 ){
-					// Turn character right
-					pointCharacter( 1 );
-				}
-				else{
-					// Turn character left
-					pointCharacter( 3 );
-				}
-				break;
-			default:
-				return false;
-		}
-
-		return super.onTouchEvent( event );
-	}*/
 
 }
