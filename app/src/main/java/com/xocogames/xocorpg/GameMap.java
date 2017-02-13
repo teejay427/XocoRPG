@@ -18,6 +18,8 @@ class GameMap {
 
 
 	void onDraw( Canvas canvas ){
+
+
 		for( Character character : characters ){
 			character.onDraw( 100, 100, canvas );
 		}

@@ -14,6 +14,10 @@ import android.view.View;
 public class GameView extends View {
 
 	boolean widthAndHeightInitialized = false;
+	static float screenWidthInCentimeters = 0.0f;
+	static float screenHeightInCentimeters = 0.0f;
+	static int screenWidthInPixels = 0;
+	static int screenHeightInPixels = 0;
 	int canvasWidth;
 	int canvasHeight;
 	int canvasWidthCenter;
