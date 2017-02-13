@@ -94,6 +94,7 @@ public class GameView extends View {
 		}
 
 		gameMap.onDraw( canvas );
+
 	}
 
 	/*@Override
