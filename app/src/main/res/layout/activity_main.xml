@@ -11,7 +11,7 @@
 	<view
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		class="com.xocogames.xocorpg.CharacterView"
+		class="com.xocogames.xocorpg.GameView"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentStart="true"
 		android:id="@+id/view" />

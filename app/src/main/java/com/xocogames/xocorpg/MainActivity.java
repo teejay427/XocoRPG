@@ -9,42 +9,52 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
 
-	Random random = new Random();
-	NameGenerator nameGenerator = new NameGenerator();
+	//Random random = new Random();
+	//NameGenerator nameGenerator = new NameGenerator();
 	ArrayList<MyTriangle> myTriangles;
 	int myOrientation;
 
 	private GestureDetectorCompat mDetector;
 
+
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
+
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
 
 		int currentUIOptions = this.getWindow().getDecorView().getSystemUiVisibility();
-		int newUIOptions = currentUIOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		int newUIOptions = currentUIOptions
+				| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+				| View.SYSTEM_UI_FLAG_IMMERSIVE
+				| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+				| View.SYSTEM_UI_FLAG_FULLSCREEN;
 		if( currentUIOptions != newUIOptions ){
 			this.getWindow().getDecorView().setSystemUiVisibility( newUIOptions );
 		}
 
 		mDetector = new GestureDetectorCompat( this, this );
+
 	}
+
 
 	public int getWidth(){
 		return this.getWindow().getDecorView().getWidth();
 	}
 
+
 	public int getHeight(){
 		return this.getWindow().getDecorView().getHeight();
 	}
 
-	private CharacterView getCharacterView(){
-		return ( CharacterView ) findViewById( R.id.view );
+
+	private GameView getGameView(){
+		return ( GameView ) findViewById( R.id.view );
 	}
+
 
 	public void updateMyTriangles(){
 		// Fills the MyTriangle array with updated triangles for the
@@ -72,6 +82,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
 	}
 
+
 	@Override
 	public void onConfigurationChanged( Configuration newConfig ){
 
@@ -81,35 +92,20 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 		}
 
 		super.onConfigurationChanged( newConfig );
+
 	}
+
 
 	@Override
 	public boolean onTouchEvent( MotionEvent event ){
+
+		//Log.d( "OnTouchEvent", Float.toString( event.getX( 0 ) ) );
 
 		if( myTriangles == null ){
 			updateMyTriangles();
 		}
 
-		this.mDetector.onTouchEvent( event );
-
-		// Be sure to call the superclass implementation
-		return super.onTouchEvent( event );
-	}
-
-	@Override
-	public boolean onDown( MotionEvent e ){
-		return false;
-	}
-
-	@Override
-	public void onShowPress( MotionEvent e ){
-
-	}
-
-	@Override
-	public boolean onSingleTapUp( MotionEvent event ){
-
-		// These .contains() functions take approximately 15ms to run ( each ) without caching
+		/*// These .contains() functions take approximately 15ms to run ( each ) without caching
 		//  With caching ( running them over and over again ), they take about 6ms
 
 		if( myTriangles.get( 0 ).contains( event.getX( 0 ), event.getY( 0 ) ) ){
@@ -123,24 +119,48 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 		}
 		else{
 			getCharacterView().pointCharacter( 3 );
-		}
+		}*/
 
+		this.mDetector.onTouchEvent( event );
+
+		// Be sure to call the superclass implementation
+		return super.onTouchEvent( event );
+	}
+
+
+	@Override
+	public boolean onDown( MotionEvent e ){
 		return false;
+	}
+
+
+	@Override
+	public void onShowPress( MotionEvent e ){
 
 	}
+
+
+	@Override
+	public boolean onSingleTapUp( MotionEvent event ){
+		return false;
+	}
+
 
 	@Override
 	public boolean onScroll( MotionEvent e1, MotionEvent e2, float distanceX, float distanceY ){
 		return false;
 	}
 
+
 	@Override
 	public void onLongPress( MotionEvent e ){
 
 	}
 
+
 	@Override
 	public boolean onFling( MotionEvent e1, MotionEvent e2, float velocityX, float velocityY ){
 		return false;
 	}
+
 }
