@@ -26,6 +26,16 @@ public class GameView extends View {
 	DisplayMetrics metrics = new DisplayMetrics();
 	Paint linePaint;
 	GameMap gameMap;
+	float gridSize = 0.75f;
+	float numberOfColumns;
+	float numberOfRows;
+	int pixelsPerUnit;
+	int columnInt;
+	int rowInt;
+	float columnRemainder;
+	float rowRemainder;
+	int columnOffset;
+	int rowOffset;
 
 	public GameView( Context context ){
 		super( context );
@@ -52,39 +62,38 @@ public class GameView extends View {
 	@Override
 	protected void onDraw( Canvas canvas ){
 		super.onDraw( canvas );
+		getDisplay().getMetrics( metrics );
+		int densityDpc = ( int ) ( metrics.densityDpi / 2.54 * 0.75 );
+
+		if( screenWidthInCentimeters == 0.0f ){
+			screenWidthInPixels = metrics.widthPixels;
+			screenHeightInPixels = metrics.heightPixels;
+			screenWidthInCentimeters = screenWidthInPixels / densityDpc;
+			screenHeightInCentimeters = screenHeightInCentimeters / densityDpc;
+
+			numberOfColumns = screenWidthInCentimeters / gridSize;
+			numberOfRows = screenHeightInCentimeters / gridSize;
+			pixelsPerUnit = ( int ) ( screenWidthInPixels / numberOfColumns );
+
+			columnRemainder = numberOfColumns % 1;
+			rowRemainder = numberOfRows % 1;
+
+			columnInt = ( int ) numberOfColumns;
+			rowInt = ( int ) numberOfRows;
+
+			if( columnInt % 2 == 0 ){
+				columnInt -= 1;
+				columnRemainder += 1;
+			}
+			if( rowInt % 2 == 0 ){
+				rowInt -= 1;
+				rowRemainder += 1;
+			}
+			columnOffset = ( int ) ( ( columnRemainder * pixelsPerUnit ) / 2 );
+			rowOffset = ( int ) ( ( rowRemainder * pixelsPerUnit ) / 2 );
+		}
 
 		gameMap.onDraw( canvas );
-
-		canvas.save();
-		//canvas.translate( 60, 60 );
-		getDisplay().getSize( size );
-		getDisplay().getMetrics( metrics );
-
-		int heightPixels = metrics.heightPixels;
-		int widthPixels = metrics.widthPixels;
-		int densityDpi = metrics.densityDpi;
-		//float xdpi = metrics.xdpi;
-		//float ydpi = metrics.ydpi;
-
-		Log.i( "onDraw", "width: " + Integer.toString( widthPixels ) + ", height: " + Integer.toString( heightPixels ) + ", density: " + Integer.toString( densityDpi ) );
-		int densityDpc = ( int ) ( densityDpi / 2.54 * 0.75 );
-
-		for( int i = 0; densityDpc * i < heightPixels; ++i ){
-			canvas.drawLine( 0, densityDpc * i, widthPixels, densityDpc * i, linePaint );
-		}
-		for( int i = 0; densityDpc * i < widthPixels; ++i ){
-			canvas.drawLine( densityDpc * i, 0, densityDpc * i, heightPixels, linePaint );
-		}
-
-		canvas.restore();
-
-		if( !widthAndHeightInitialized ){
-			canvasWidth = canvas.getWidth();
-			canvasHeight = canvas.getHeight();
-			canvasWidthCenter = canvasWidth / 2;
-			canvasHeightCenter = canvasHeight / 2;
-			widthAndHeightInitialized = true;
-		}
 	}
 
 	/*@Override
