@@ -105,21 +105,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 			updateMyTriangles();
 		}
 
-		/*// These .contains() functions take approximately 15ms to run ( each ) without caching
-		//  With caching ( running them over and over again ), they take about 6ms
-
-		if( myTriangles.get( 0 ).contains( event.getX( 0 ), event.getY( 0 ) ) ){
-			getCharacterView().pointCharacter( 0 );
-		}
-		else if( myTriangles.get( 1 ).contains( event.getX( 0 ), event.getY( 0 ) ) ){
-			getCharacterView().pointCharacter( 1 );
-		}
-		else if( myTriangles.get( 2 ).contains( event.getX( 0 ), event.getY( 0 ) ) ){
-			getCharacterView().pointCharacter( 2 );
-		}
-		else{
-			getCharacterView().pointCharacter( 3 );
-		}*/
+		getGameView().onTouch( event );
 
 		this.mDetector.onTouchEvent( event );
 

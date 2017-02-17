@@ -8,7 +8,7 @@ import android.graphics.Paint;
 
 import java.util.ArrayList;
 
-class Character {
+class Character extends GameElement {
 
 	private int x, y;
 	private String name;
@@ -19,6 +19,7 @@ class Character {
 	private Paint characterPaint;
 
 	Character( int x, int y, String name, Context context, GameView gameView ){
+
 		this.x = x;
 		this.y = y;
 		this.name = name;
@@ -61,8 +62,9 @@ class Character {
 
 	}
 
-	void onDraw( int x, int y, Canvas canvas ){
-		canvas.drawBitmap( currentSprite, x, y, characterPaint );
+	@Override
+	void onDraw( int pixelsPerUnit, int columnOffset, int rowOffset, Canvas canvas ){
+		canvas.drawBitmap( currentSprite, x * pixelsPerUnit + columnOffset + ( ( pixelsPerUnit - currentSprite.getWidth() ) / 2 ), y * pixelsPerUnit + rowOffset + ( ( pixelsPerUnit - currentSprite.getHeight() ) / 2 ), characterPaint );
 	}
 
 
@@ -89,6 +91,24 @@ class Character {
 
 		gameView.invalidate();
 
+	}
+
+	public int getX(){
+		return x;
+	}
+
+	public int getY(){
+		return y;
+	}
+
+	Character setX( int x ){
+		this.x = x;
+		return this;
+	}
+
+	Character setY( int y ){
+		this.y = y;
+		return this;
 	}
 
 }

@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -16,6 +17,8 @@ public class GameView extends View {
 	static float screenHeightInCentimeters = 0.0f;
 	static int screenWidthInPixels = 0;
 	static int screenHeightInPixels = 0;
+	static int columnInt;
+	static int rowInt;
 	DisplayMetrics metrics = new DisplayMetrics();
 	Paint linePaint;
 	GameMap gameMap;
@@ -23,8 +26,6 @@ public class GameView extends View {
 	float numberOfColumns;
 	float numberOfRows;
 	int pixelsPerUnit;
-	int columnInt;
-	int rowInt;
 	float columnRemainder;
 	float rowRemainder;
 	int columnOffset;
@@ -62,10 +63,11 @@ public class GameView extends View {
 			screenWidthInPixels = metrics.widthPixels;
 			screenHeightInPixels = metrics.heightPixels;
 			screenWidthInCentimeters = screenWidthInPixels / densityDpc;
-			screenHeightInCentimeters = screenHeightInCentimeters / densityDpc;
+			screenHeightInCentimeters = screenHeightInPixels / densityDpc;
 
 			numberOfColumns = screenWidthInCentimeters / gridSize;
 			numberOfRows = screenHeightInCentimeters / gridSize;
+			Log.d( "test", Float.toString( screenWidthInPixels / numberOfColumns ) );
 			pixelsPerUnit = ( int ) ( screenWidthInPixels / numberOfColumns );
 
 			columnRemainder = numberOfColumns % 1;
@@ -88,6 +90,10 @@ public class GameView extends View {
 
 		gameMap.onDraw( canvas );
 
+	}
+
+	boolean onTouch( MotionEvent event ){
+		return gameMap.onTouch( event );
 	}
 
 }
