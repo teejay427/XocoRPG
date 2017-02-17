@@ -16,7 +16,7 @@ class GameMap {
 	private Character mainCharacter;
 	private GameView gameView;
 	Context context;
-	Paint paint;
+	private Paint paint;
 
 
 	GameMap( Context context, GameView gameView ){

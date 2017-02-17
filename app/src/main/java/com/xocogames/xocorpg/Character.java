@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 class Character extends GameElement {
 
-	private int x, y;
 	private String name;
 	private ArrayList<ArrayList<Bitmap>> characterSprites;
 	private Context context;
